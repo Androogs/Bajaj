@@ -32,7 +32,6 @@ export default function Barra() {
       <header className="barra">
         <div className="wrap">
           <Link to="/" className="logo" aria-label="SUMOTO S.A., ir al inicio">
-          import logo from "/motos/logos/logo_house.png";
           <img src={logo} />
           </Link>
 
