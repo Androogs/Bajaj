@@ -7,33 +7,82 @@ export default function Contacto() {
   const [enviado, setEnviado] = useState(false);
   const [error, setError] = useState("");
 
-  const set = (campo) => (e) => setDatos((d) => ({ ...d, [campo]: e.target.value }));
+  const set = (campo) => (e) => setDatos((d) => ({...d, [campo]: e.target.value }));
 
   const enviar = () => {
-    if (!datos.nombre.trim() || !datos.tel.trim()) {
+    if (!datos.nombre.trim() ||!datos.tel.trim()) {
       setError("Escribe tu nombre y tu teléfono para poder responderte.");
       return;
     }
     setError("");
     const texto =
       `Hola SUMOTO, soy ${datos.nombre}. Teléfono: ${datos.tel}.` +
-      (datos.modelo ? ` Me interesa la ${datos.modelo}.` : "") +
-      (datos.mensaje ? ` ${datos.mensaje}` : "");
+      (datos.modelo? ` Me interesa la ${datos.modelo}.` : "") +
+      (datos.mensaje? ` ${datos.mensaje}` : "");
     window.open(waLink(texto), "_blank", "noopener");
     setEnviado(true);
   };
 
-  return (
-    <main className="seccion">
-      <div className="wrap">
-        <h1 style={{ fontSize: "clamp(2.2rem,5vw,3.4rem)", textTransform: "uppercase" }}>Contacto</h1>
-        <p className="intro sutil">
-          Respondemos por WhatsApp en horario de atención. También puedes visitarnos en la vitrina sin cita previa.
-        </p>
+  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(SUMOTO.direccion)}&z=17&output=embed`;
 
-        <div className="duo">
+  return (
+    <main style={{ paddingBottom: 80 }}>
+      {/* HEADER */}
+      <section className="seccion seccion-azul" style={{ paddingBottom: 40 }}>
+        <div className="wrap">
+          <h1 style={{ color: "#fff", fontSize: "clamp(2.4rem,5vw,3.8rem)", textTransform: "uppercase", margin: 0 }}>
+            Estamos en Palmira
+          </h1>
+          <p style={{ color: "#CBDAEC", marginTop: 12, fontSize: "1.1rem", maxWidth: 600 }}>
+            Visítanos sin cita previa. Respondemos por WhatsApp en menos de 10 minutos en horario de atención.
+          </p>
+        </div>
+      </section>
+
+      {/* MAPA GRANDE */}
+      <section style={{ width: "100%", height: 420, position: "relative", background: "#e9eef5" }}>
+        <iframe
+          title="Mapa SUMOTO Palmira"
+          src={mapSrc}
+          width="100%"
+          height="100%"
+          style={{ border: 0, filter: "grayscale(0.1) contrast(1.05)" }}
+          allowFullScreen=""
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <div style={{
+          position: "absolute",
+          bottom: 20,
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "white",
+          padding: "12px 18px",
+          borderRadius: 12,
+          boxShadow: "0 8px 30px rgba(0,0,0,.15)",
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+          maxWidth: "90%",
+          width: 480
+        }}>
+          <div style={{ background: "var(--azul, #0A2240)", color: "white", width: 42, height: 42, borderRadius: 10, display: "grid", placeItems: "center", fontSize: 20 }}>📍</div>
+          <div style={{ flex: 1 }}>
+            <b style={{ display: "block", fontSize: ".95rem", color: "#666" }}>{SUMOTO.direccion}</b>
+            <span style={{ fontSize: ".82rem", color: "#666" }}>{SUMOTO.ciudad}</span>
+          </div>
+          <a className="btn btn-azul" href={SUMOTO.mapaLink} target="_blank" rel="noopener noreferrer" style={{ padding: "8px 14px", fontSize: ".85rem" }}>
+            Cómo llegar
+          </a>
+        </div>
+      </section>
+
+      <div className="wrap" style={{ marginTop: 40 }}>
+        <div className="duo" style={{ alignItems: "start", gap: 32 }}>
+          {/* FORMULARIO */}
           <div>
-            <h2 style={{ fontSize: "1.6rem", marginBottom: 16 }}>Escríbenos</h2>
+            <h2 style={{ fontSize: "1.8rem", marginBottom: 8 }}>Escríbenos</h2>
+            <p className="sutil" style={{ marginBottom: 20 }}>Tu mensaje llega directamente a una de nuestras asesoras de ventas.</p>
             <div className="form">
               <div className="campo">
                 <label htmlFor="n">Nombre</label>
@@ -56,31 +105,49 @@ export default function Contacto() {
                 <label htmlFor="ms">Mensaje</label>
                 <textarea id="ms" rows="4" value={datos.mensaje} onChange={set("mensaje")} placeholder="¿En qué te podemos ayudar?" />
               </div>
-              <button className="btn btn-wa" onClick={enviar}>Enviar por WhatsApp</button>
-              {error && <p style={{ color: "var(--rojo)", margin: 0 }}>{error}</p>}
+              <button className="btn btn-wa" onClick={enviar} style={{ width: "100%", justifyContent: "center", padding: "14px" }}>Enviar por WhatsApp</button>
+              {error && <p style={{ color: "var(--rojo)", margin: 0, fontSize: ".9rem" }}>{error}</p>}
               {enviado && (
-                <div className="aviso">
-                  Abrimos WhatsApp con tu mensaje listo. Si no se abrió, escríbenos al {SUMOTO.whatsapp}.
+                <div className="aviso" style={{ background: "#e6f9ed", border: "1px solid #b6e8c5", padding: 12, borderRadius: 8 }}>
+                  ✅ Abrimos WhatsApp con tu mensaje listo. Si no se abrió, revisa el bloqueador de ventanas emergentes.
                 </div>
               )}
             </div>
           </div>
 
+          {/* INFO */}
           <div>
-            <h2 style={{ fontSize: "1.6rem", marginBottom: 16 }}>Vitrina en Palmira</h2>
-            <div className="caja">
-              <table className="tabla-specs">
-                <tbody>
-                  <tr><th>Dirección</th><td>{SUMOTO.direccion}</td></tr>
-                  <tr><th>Correo</th><td>{SUMOTO.correo}</td></tr>
-                  <tr><th>Horario</th><td>{SUMOTO.horario}</td></tr>
-                </tbody>
-              </table>
+            <h2 style={{ fontSize: "1.8rem", marginBottom: 16 }}>Vitrina en Palmira</h2>
+            <div style={{ display: "grid", gap: 12 }}>
+              <div className="caja" style={{ display: "flex", gap: 14, alignItems: "start" }}>
+                <span style={{ fontSize: 22 }}></span>
+                <div><b>Dirección</b><p className="sutil" style={{ margin: "4px 0 0" }}>{SUMOTO.direccion}</p></div>
+              </div>
+              <div className="caja" style={{ display: "flex", gap: 14, alignItems: "start" }}>
+                <span style={{ fontSize: 22 }}></span>
+                <div><b>Horario</b><p className="sutil" style={{ margin: "4px 0 0" }}>{SUMOTO.horario}</p></div>
+              </div>
+              <div className="caja" style={{ display: "flex", gap: 14, alignItems: "start" }}>
+                <span style={{ fontSize: 22 }}></span>
+                <div><b>Correo</b><p className="sutil" style={{ margin: "4px 0 0" }}>{SUMOTO.correo}</p></div>
+              </div>
+              <div className="caja" style={{ display: "flex", gap: 14, alignItems: "start" }}>
+                <span style={{ fontSize: 22 }}></span>
+                <div>
+                  <b>WhatsApp Ventas</b>
+                  <p className="sutil" style={{ margin: "4px 0 0" }}>{SUMOTO.telefonos} <br/><small>• El sistema asigna automáticamente a una asesora disponible</small></p>
+                </div>
+              </div>
             </div>
-            <a className="mapa-caja" href={SUMOTO.mapaLink} target="_blank" rel="noopener noreferrer">
-              <b>Cómo llegar</b>
-              <span>{SUMOTO.direccion} — abrir la ubicación en Google Maps</span>
-            </a>
+
+            <div style={{ marginTop: 20, display: "flex", gap: 10 }}>
+              <a className="btn btn-azul" href={SUMOTO.mapaLink} target="_blank" rel="noopener noreferrer" style={{ flex: 1, textAlign: "center" }}>
+                Abrir en Google Maps
+              </a>
+              <a className="btn btn-rojo" href={waLink("Hola SUMOTO, quiero visitar la vitrina de Palmira.")} target="_blank" rel="noopener noreferrer" style={{ flex: 1, textAlign: "center" }}>
+                Escribir por WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </div>

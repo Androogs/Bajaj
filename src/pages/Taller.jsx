@@ -1,4 +1,4 @@
-import { waLink } from "../data/sumoto.js";
+import { waTaller } from "../data/sumoto.js";
 
 const SERVICIOS = [
   ["Mantenimiento preventivo", "Cambio de aceite, filtros, ajuste de válvulas, sincronización y revisión de frenos según el kilometraje."],
@@ -31,7 +31,7 @@ export default function Taller() {
           <a
             className="btn btn-rojo"
             style={{ marginTop: 18 }}
-            href={waLink("Hola SUMOTO, quiero agendar una cita en el taller.")}
+            href={waTaller("Hola SUMOTO, quiero agendar una cita en el taller.")}
             target="_blank"
             rel="noopener noreferrer"
           >
