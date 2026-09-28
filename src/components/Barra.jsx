@@ -32,7 +32,7 @@ export default function Barra() {
       <header className="barra">
         <div className="wrap">
           <Link to="/" className="logo" aria-label="SUMOTO S.A., ir al inicio">
-            <img src="public/motos/logos/logo_house.png" alt="SUMOTO S.A. - Bajaj Palmira" />
+            <img src="/motos/logos/logo_house.png" alt="SUMOTO S.A. - Bajaj Palmira" />
           </Link>
 
           <nav className={"menu" + (abierto ? " abierto" : "")}>
