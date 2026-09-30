@@ -1,5 +1,8 @@
 node_modules
 dist
 .DS_Store
+<<<<<<< HEAD
 *.local
 .vite
+=======
+>>>>>>> 540176676a648ddce5278bdbbe0782d6db2c020a
